@@ -1,0 +1,65 @@
+*barbaric.txt*			Automatic input method switching for Mac OS
+
+==============================================================================
+INTRODUCTION							*barbaric*
+
+Barbaric facilitates the use of non-Latin input methods in vim (since Normal
+mode commands are nearly all mapped to Latin characters). It automatically
+detects and switches between input methods as appropriate, and requires no
+user interaction.
+
+This plugin depends on a third-party binary which is only available for macOS.
+For other platforms, consider built-in support for X11 (|mbyte-XIM|) and
+Windows (|mbyte-IME|) IMEs.
+
+Technical Reference ~
+
+    * Dependencies......................................|barbaric-dependencies|
+    * Options................................................|barbaric-options|
+
+
+==============================================================================
+DEPENDENCIES						*barbaric-dependencies*
+
+This plugin depends on xkbswitch-macosx.
+To install it, copy the binary to one of the folders on your PATH:
+
+	$ git clone https://github.com/myshov/xkbswitch-macosx
+	$ cp xkbswitch-macosx/bin/xkbswitch /usr/local/bin
+	$ rm -rf xkbswitch-macosx
+
+==============================================================================
+OPTIONS							*barbaric-options*
+
+							*g:barbaric_default*
+Default input method	number (default system('xkbswitch -g'))
+	Specifies the input method to activate when exiting Insert mode (as
+	reported by xkbswitch).
+	Be sure to set this if you think you might ever have a non-Latin input
+	method active when launching vim.
+
+							*g:barbaric_scope*
+Persistence scope	string (default "buffer")
+	Sets the scope across which remembered input methods will persist.
+	For example, when "buffer" is used, remembered input methods are local
+	to a each buffer.
+	Options are "global", "tab", "window", or "buffer".
+
+							*g:barbaric_timeout*
+Persistence timeout	number (default -1)
+	Forget remembered input methods if this many seconds have elapsed
+	since the last time you entered Insert mode.
+	Useful if you only need input method persistence for short bursts of
+	active work.
+	Disabled by default.
+
+==============================================================================
+ABOUT							*barbaric-about*
+
+This project is hosted on GitHub.
+	https://github.com/rlue/vim-barbaric  
+ 
+							*barbaric-license*
+Copyright © Ryan Lue. Distributed under the MIT License.
+
+ vim:tw=78:ts=8:et:ft=help:norl:
