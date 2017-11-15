@@ -1,13 +1,13 @@
-⌨️ Barbaric
+⌨️  Barbaric
 ==========
 
 ![](https://raw.githubusercontent.com/rlue/i/master/vim-barbaric/demo.gif)
 
-**vim + non-Latin scripts = pain.** _Barbaric_ is the cure.
+**vim + non-Latin input = pain.** _Barbaric_ is the cure.
 
 ### Why?
 
-Normal mode mappings are all 8-bit ASCII (_i.e.,_ Latin) characters. That means that when you want to work on a file in Russian (or Greek or Chinese), you’ve got to switch back to English (or Spanish or German) every time you leave Insert mode.
+Normal mode mappings (_e.g.,_ `h` / `j` / `k` / `l`) are all 8-bit ASCII characters. That means that when you want to work on a file in Russian (or Greek or Chinese), you’ve got to switch back to English (or Spanish or German) every time you leave Insert mode.
 
 _Barbaric_ detects which input method is active when you first launch vim, then again any time you leave Input mode, and switches between them for you automatically.
 
@@ -52,20 +52,24 @@ Usage
 
 _Barbaric_ should work out of the box provided that whenever you launch vim, the active input method is the same one you want to use in Normal mode. If that’s not the case, be sure to set the first option in the [configuration section](#configuration) below.
 
+#### Known bugs
+
+On certain input methods (notably Chinese and Korean), switching windows away from vim and back can cause xkbswitch to malfunction. The problem is described [here](https://github.com/myshov/xkbswitch-macosx/issues/5).
+
 Configuration
 -------------
 
 To change the default behavior of _Barbaric_, modify the lines below and add them to your `.vimrc`. 
 
 ```viml
-" The input method for NORMAL mode (as defined by `xkbswitch -g`)
+" The input method for Normal mode (as defined by `xkbswitch -g`)
 let g:barbaric_default = 0
 
 " The scope where alternate input methods persist (buffer, window, tab, global)
 let g:barbaric_scope = 'buffer'
 
 " Forget alternate input method after n seconds in Normal mode (disabled by default)
-" Useful if you only need input method persistence for short bursts of active work.
+" Useful if you only need IM persistence for short bursts of active work.
 let g:barbaric_timeout = -1
 ```
 
