@@ -1,9 +1,9 @@
 ⌨️  Barbaric
 ==========
 
-![](https://raw.githubusercontent.com/rlue/i/master/vim-barbaric/demo.gif)
-
 **vim + non-Latin input = pain.** _Barbaric_ is the cure.
+
+![](https://raw.githubusercontent.com/rlue/i/master/vim-barbaric/demo.gif)
 
 ### Why?
 
@@ -26,7 +26,11 @@ Vim doesn’t play nicely with non-Latin scripts; _i.e.,_ input languages of non
 
 ### Supported Platforms
 
-macOS only. For other platforms, try [vim-xkbswitch](https://github.com/lyokha/vim-xkbswitch), or consider built-in support for X11 and MS-Windows IMEs (`:help mbyte-XIM` / `:help mbyte-IME`).
+macOS only. For other platforms, consider:
+
+* built-in support for X11 and MS-Windows IMEs (`:help mbyte-XIM` / `:help mbyte-IME`),
+* built-in multi-byte keymaps (`:help mbyte-keymap` / explained [here](https://github.com/rlue/vim-barbaric/issues/2#issuecomment-344625562)), or
+* [vim-xkbswitch](https://github.com/lyokha/vim-xkbswitch).
 
 Installation
 ------------
