@@ -1,6 +1,8 @@
 if executable('xkbswitch')
   " The input method for Normal mode (as defined by `xkbswitch -g`)
-  let g:barbaric_default = system('xkbswitch -g')
+  if !exists('g:barbaric_default')
+    let g:barbaric_default = system('xkbswitch -g')
+  endif
 
   " The scope where alternate input methods persist (buffer, window, tab, global)
   let g:barbaric_scope = 'buffer'

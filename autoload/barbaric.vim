@@ -3,7 +3,7 @@
 execute exists('g:loaded_barbaric') ? 'finish' : 'let g:loaded_barbaric = 1'
 
 " Check dependencies
-call system('type xkbswitch') | if v:shell_error | finish | endif
+if !executable('xkbswitch') | finish | endif
 
 " PUBLIC FUNCTIONS =============================================================
 function! barbaric#switch(next_mode)
