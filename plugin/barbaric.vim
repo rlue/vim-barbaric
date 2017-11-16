@@ -5,11 +5,15 @@ if executable('xkbswitch')
   endif
 
   " The scope where alternate input methods persist (buffer, window, tab, global)
-  let g:barbaric_scope = 'buffer'
+  if !exists('g:barbaric_scope')
+    let g:barbaric_scope = 'buffer'
+  endif
 
   " Forget alternate input method after n seconds in Normal mode (disabled by default)
   " Useful if you only need IM persistence for short bursts of active work.
-  let g:barbaric_timeout = -1
+  if !exists('g:barbaric_timeout')
+    let g:barbaric_timeout = -1
+  endif
 
   augroup barbaric
     autocmd!
