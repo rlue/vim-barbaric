@@ -22,5 +22,6 @@ if executable('xkbswitch')
     autocmd FocusGained * call barbaric#switch('focus')
     autocmd FocusLost   * call barbaric#switch('unfocus')
     autocmd VimLeave    * call barbaric#switch('unfocus')
+    autocmd VimEnter    * call barbaric#switch('normal')
   augroup END
 endif
