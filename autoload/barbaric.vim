@@ -43,14 +43,14 @@ function! s:current_im()
 endfunction
 
 function! s:record_current_im()
-  execute "let " . s:current_im() . " = system('xkbswitch -g')"
+  silent execute "let " . s:current_im() . " = system('xkbswitch -g')"
   if eval(s:current_im()) == g:barbaric_default
     execute 'silent! unlet ' . s:current_im()
   endif
 endfunction
 
 function! s:switch_to_im(target)
-  call system('xkbswitch -s ' . a:target)
+  silent call system('xkbswitch -s ' . a:target)
 endfunction
 
 " Timeout ----------------------------------------------------------------------
