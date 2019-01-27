@@ -1,7 +1,10 @@
 if executable('xkbswitch')
+  if !exists('g:barbaric_default_name')
+    let g:barbaric_default_name = 'ABC'
+  endif
   " The input method for Normal mode (as defined by `xkbswitch -g`)
   if !exists('g:barbaric_default')
-    let g:barbaric_default = system('xkbswitch -g')
+    let g:barbaric_default = system('xkbswitch -g -e ' . g:barbaric_default_name)
   endif
 
   " The scope where alternate input methods persist (buffer, window, tab, global)
@@ -19,9 +22,9 @@ if executable('xkbswitch')
     autocmd!
     autocmd InsertEnter * call barbaric#switch('insert')
     autocmd InsertLeave * call barbaric#switch('normal')
-    autocmd FocusGained * call barbaric#switch('focus')
-    autocmd FocusLost   * call barbaric#switch('unfocus')
-    autocmd VimLeave    * call barbaric#switch('unfocus')
+    autocmd FocusLost   * call barbaric#switch('insert')
+    autocmd FocusGained * call barbaric#switch('normal')
+    autocmd VimLeave    * call barbaric#switch('insert')
     autocmd VimEnter    * call barbaric#switch('normal')
   augroup END
 endif

@@ -67,6 +67,7 @@ To change the default behavior of _Barbaric_, modify the lines below and add the
 
 ```viml
 " The input method for Normal mode (as defined by `xkbswitch -g`)
+let g:barbaric_default_name = 'ABC' "much stable
 let g:barbaric_default = 0
 
 " The scope where alternate input methods persist (buffer, window, tab, global)
