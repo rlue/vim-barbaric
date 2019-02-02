@@ -24,9 +24,17 @@ From [Wikipedia](https://en.wikipedia.org/w/index.php?title=Barbarian&oldid=7928
 
 Vim doesn’t play nicely with non-Latin scripts; _i.e.,_ input languages of non-Roman origin. _Ipso facto,_ this is a plugin for barbarians.
 
-### Supported Platforms
+### Supported IMEs
 
-macOS only. For other platforms, consider:
+* fcitx
+* ibus
+* macOS (requires [xkbswitch-macosx](https://github.com/myshov/xkbswitch-macosx))
+
+  ```sh
+  $ curl -o /usr/local/bin/xkbswitch https://raw.githubusercontent.com/myshov/xkbswitch-macosx/master/bin/xkbswitch
+  ```
+
+If you need support for another IME or input system, consider:
 
 * built-in support for X11 and MS-Windows IMEs (`:help mbyte-XIM` / `:help mbyte-IME`),
 * built-in multi-byte keymaps (`:help mbyte-keymap` / explained [here](https://github.com/rlue/vim-barbaric/issues/2#issuecomment-344625562)), or
@@ -37,28 +45,14 @@ Installation
 
 There are lots of vim plugin managers out there. I like [vim-plug](https://github.com/junegunn/vim-plug).
 
-### Dependencies
-
-* **[xkbswitch-macosx](https://github.com/myshov/xkbswitch-macosx)**
-
-  To install, copy the binary to one of the folders on your `PATH`:
-
-  ```
-  $ git clone https://github.com/myshov/xkbswitch-macosx
-  $ cp xkbswitch-macosx/bin/xkbswitch /usr/local/bin
-  $ rm -rf xkbswitch-macosx
-  ```
-
-  (It’s not ideal — I wish there were a brew formula. If you do too, let [@myshov](https://github.com/myshov) know [here](https://github.com/myshov/xkbswitch-macosx/issues/4).)
-
 Usage
 -----
 
-_Barbaric_ should work out of the box provided that whenever you launch vim, the active input method is the same one you want to use in Normal mode. If that’s not the case, be sure to set the first option in the [configuration section](#configuration) below.
+_Barbaric_ should work out of the box provided that whenever you launch vim, the active input method is the one you want to use in Normal mode. If that’s not the case, be sure to set the first option in the [configuration section](#configuration) below.
 
 #### Known bugs
 
-On certain input methods (notably Chinese and Korean), switching windows away from vim and back can cause xkbswitch to malfunction. The problem is described [here](https://github.com/myshov/xkbswitch-macosx/issues/5).
+On macOS, in certain input methods (notably Chinese and Korean), switching windows away from vim and back can cause xkbswitch to malfunction. The problem is described [here](https://github.com/myshov/xkbswitch-macosx/issues/5).
 
 Configuration
 -------------
@@ -66,7 +60,7 @@ Configuration
 To change the default behavior of _Barbaric_, modify the lines below and add them to your `.vimrc`. 
 
 ```viml
-" The input method for Normal mode (as defined by `xkbswitch -g`)
+" The input method for Normal mode (as defined by `xkbswitch -g` or `ibus engine`)
 let g:barbaric_default = 0
 
 " The scope where alternate input methods persist (buffer, window, tab, global)

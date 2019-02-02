@@ -2,26 +2,22 @@
 " Prevent double-sourcing
 execute exists('g:loaded_barbaric') ? 'finish' : 'let g:loaded_barbaric = 1'
 
-" Check dependencies
-if !executable('xkbswitch') | finish | endif
-
 " PUBLIC FUNCTIONS =============================================================
 function! barbaric#switch(next_mode)
   if a:next_mode == 'normal'
-    call s:record_current_im()
-    call s:switch_to_im(g:barbaric_default)
+    call s:record_im()
+    call s:restore_normal_im()
     call s:set_timeout()
   elseif a:next_mode == 'insert'
     call s:check_timeout()
-    if !exists(s:current_im()) | return | endif
-    call s:switch_to_im(eval(s:current_im()))
+    call s:restore_insert_im()
   endif
 endfunction
 
 " HELPER FUNCTIONS =============================================================
 " Scope ------------------------------------------------------------------------
 function! s:scope_marker()
-  let l:scope = s:current_scope()
+  let l:scope = s:scope()
   if l:scope == 'g'
     return
   elseif l:scope == 't'
@@ -33,24 +29,51 @@ function! s:scope_marker()
   endif
 endfunction
 
-function! s:current_scope()
+function! s:scope()
   return strcharpart(g:barbaric_scope, 0, 1)
 endfunction
 
 " Input method -----------------------------------------------------------------
-function! s:current_im()
-  return s:current_scope() . ':barbaric_current'
-endfunction
-
-function! s:record_current_im()
-  silent execute "let " . s:current_im() . " = system('xkbswitch -g')"
-  if eval(s:current_im()) == g:barbaric_default
-    execute 'silent! unlet ' . s:current_im()
+function! s:record_im()
+  let l:im = barbaric#get_im()
+  if l:im == g:barbaric_default
+    execute 'silent! unlet ' . s:im_varname()
+  else
+    execute "silent! let " . s:im_varname() . " = '" . l:im . "'"
   endif
 endfunction
 
-function! s:switch_to_im(target)
-  silent call system('xkbswitch -s ' . a:target)
+function! barbaric#get_im()
+  if g:barbaric_ime == 'macos'
+    return system('xkbswitch -g')
+  elseif g:barbaric_ime == 'fcitx'
+    return system('fcitx-remote') == 2 ? '-o' : '-c'
+  elseif g:barbaric_ime == 'ibus'
+    return system('ibus engine')
+  endif
+endfunction
+
+function! s:restore_normal_im()
+  call s:set_im(g:barbaric_default)
+endfunction
+
+function! s:restore_insert_im()
+  if !exists(s:im_varname()) | return | endif
+  call s:set_im(eval(s:im_varname()))
+endfunction
+
+function! s:set_im(im)
+  if g:barbaric_ime == 'macos'
+    silent call system('xkbswitch -s ' . a:im)
+  elseif g:barbaric_ime == 'fcitx'
+    silent call system('fcitx-remote ' . a:im)
+  elseif g:barbaric_ime == 'ibus'
+    silent call system('ibus engine ' . a:im)
+  endif
+endfunction
+
+function! s:im_varname()
+  return s:scope() . ':barbaric_current'
 endfunction
 
 " Timeout ----------------------------------------------------------------------
@@ -67,6 +90,6 @@ function! s:check_timeout()
   endif
 
   if (localtime() - get(s:timeout, 'begin')) > g:barbaric_timeout
-    execute 'silent! unlet ' . s:current_im()
+    execute 'silent! unlet ' . s:im_varname()
   endif
 endfunction
