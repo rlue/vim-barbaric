@@ -31,6 +31,7 @@ Vim doesn’t play nicely with non-Latin scripts; _i.e.,_ input languages of non
 * macOS (requires [xkbswitch-macosx](https://github.com/myshov/xkbswitch-macosx))
 
   ```sh
+  # Install via:
   $ curl -o /usr/local/bin/xkbswitch https://raw.githubusercontent.com/myshov/xkbswitch-macosx/master/bin/xkbswitch
   ```
 
