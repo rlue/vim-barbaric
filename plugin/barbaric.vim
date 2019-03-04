@@ -11,7 +11,11 @@ endif
 
 " The input method for Normal mode (as defined by `xkbswitch -g` or `ibus engine`)
 if !exists('g:barbaric_default')
-  let g:barbaric_default = barbaric#get_im()
+  if g:barbaric_ime == 'fcitx'
+    let g:barbaric_default = '-c'
+  else
+    let g:barbaric_default = barbaric#get_im()
+  endif
 endif
 
 " The scope where alternate input methods persist (buffer, window, tab, global)
