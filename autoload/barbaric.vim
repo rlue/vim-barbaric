@@ -46,6 +46,8 @@ endfunction
 function! barbaric#get_im()
   if g:barbaric_ime == 'macos'
     return system('xkbswitch -g')
+  elseif g:barbaric_ime == 'xkb-switch'
+    return libcall(g:XkbSwitchLib, 'Xkb_Switch_getXkbLayout', '')
   elseif g:barbaric_ime == 'fcitx'
     return system('fcitx-remote') == 2 ? '-o' : '-c'
   elseif g:barbaric_ime == 'ibus'
@@ -65,6 +67,8 @@ endfunction
 function! s:set_im(im)
   if g:barbaric_ime == 'macos'
     silent call system('xkbswitch -s ' . a:im)
+  elseif g:barbaric_ime == 'xkb-switch'
+    call libcall(g:XkbSwitchLib, 'Xkb_Switch_setXkbLayout', a:im)
   elseif g:barbaric_ime == 'fcitx'
     silent call system('fcitx-remote ' . a:im)
   elseif g:barbaric_ime == 'ibus'
