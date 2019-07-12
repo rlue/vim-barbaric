@@ -1,6 +1,12 @@
 " Check dependencies
 if has('mac') && executable('xkbswitch')
   let g:barbaric_ime = 'macos'
+elseif filereadable('/usr/lib/libxkbswitch.so')
+  let g:XkbSwitchLib = "/usr/lib/libxkbswitch.so"
+  let g:barbaric_ime = 'xkb-switch'
+elseif filereadable('/lib/libxkbswitch.so')
+  let g:XkbSwitchLib = "/lib/libxkbswitch.so"
+  let g:barbaric_ime = 'xkb-switch'
 elseif executable('fcitx-remote') && system('fcitx-remote') > 0
   let g:barbaric_ime = 'fcitx'
 elseif executable('ibus')
