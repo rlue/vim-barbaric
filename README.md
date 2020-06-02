@@ -26,14 +26,16 @@ Vim doesn’t play nicely with non-Latin scripts; _i.e.,_ input languages of non
 
 ### Supported IMEs
 
-* fcitx
-* ibus
 * macOS (requires [xkbswitch-macosx](https://github.com/myshov/xkbswitch-macosx))
 
   ```sh
   # Install via:
   $ curl -o /usr/local/bin/xkbswitch https://raw.githubusercontent.com/myshov/xkbswitch-macosx/master/bin/xkbswitch
   ```
+
+* fcitx
+* ibus
+* [xkb-switch](https://github.com/grwlf/xkb-switch)
 
 If you need support for another IME or input system, consider:
 
@@ -61,7 +63,7 @@ Configuration
 To change the default behavior of _Barbaric_, modify the lines below and add them to your `.vimrc`. 
 
 ```viml
-" The input method for Normal mode (as defined by `xkbswitch -g` or `ibus engine`)
+" The input method for Normal mode (as defined by `xkbswitch -g`, `ibus engine`, or `xkb-switch -p`)
 let g:barbaric_default = 0
 
 " The scope where alternate input methods persist (buffer, window, tab, global)

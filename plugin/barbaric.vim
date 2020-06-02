@@ -3,13 +3,19 @@
 " What IME are we using? -------------------------------------------------------
 let g:barbaric_uname = substitute(system('uname'), '\n', '', '')
 
+if !exists('g:barbaric_libxkbswitch')
+  if exists('g:XkbSwitchLib')
+    let g:barbaric_libxkbswitch = g:XkbSwitchLib
+  elseif filereadable('/usr/lib/libxkbswitch.so')
+    let g:barbaric_libxkbswitch = '/usr/lib/libxkbswitch.so'
+  elseif filereadable('/lib/libxkbswitch.so')
+    let g:barbaric_libxkbswitch = '/lib/libxkbswitch.so'
+  endif
+endif
+
 if g:barbaric_uname == 'Darwin' && executable('xkbswitch')
   let g:barbaric_ime = 'macos'
-elseif filereadable('/usr/lib/libxkbswitch.so')
-  let g:XkbSwitchLib = "/usr/lib/libxkbswitch.so"
-  let g:barbaric_ime = 'xkb-switch'
-elseif filereadable('/lib/libxkbswitch.so')
-  let g:XkbSwitchLib = "/lib/libxkbswitch.so"
+else if exists('g:barbaric_libxkbswitch')
   let g:barbaric_ime = 'xkb-switch'
 elseif executable('fcitx-remote') && system('fcitx-remote') > 0
   let g:barbaric_ime = 'fcitx'
@@ -20,7 +26,7 @@ else
 endif
 
 " What language should Normal mode revert to? ----------------------------------
-" (as defined, e.g., by `xkbswitch -g` or `ibus engine`)
+" (as defined, e.g., by `xkbswitch -g`, `ibus engine`, or `xkb-switch -p`)
 if !exists('g:barbaric_default')
   if g:barbaric_ime == 'fcitx'
     let g:barbaric_default = '-c'
