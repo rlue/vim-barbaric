@@ -1,4 +1,6 @@
-" Check dependencies (see https://vi.stackexchange.com/a/2577/2593)
+" PREFLIGHT ====================================================================
+
+" What IME are we using? -------------------------------------------------------
 let g:barbaric_uname = substitute(system('uname'), '\n', '', '')
 
 if g:barbaric_uname == 'Darwin' && executable('xkbswitch')
@@ -11,7 +13,8 @@ else
   finish
 endif
 
-" The input method for Normal mode (as defined by `xkbswitch -g` or `ibus engine`)
+" What language should Normal mode revert to? ----------------------------------
+" (as defined, e.g., by `xkbswitch -g` or `ibus engine`)
 if !exists('g:barbaric_default')
   if g:barbaric_ime == 'fcitx'
     let g:barbaric_default = '-c'
@@ -20,17 +23,19 @@ if !exists('g:barbaric_default')
   endif
 endif
 
-" The scope where alternate input methods persist (buffer, window, tab, global)
+" Once an input language has been identified, where else should we use it? -----
+" (choose from 'buffer', 'window', 'tab', 'global')
 if !exists('g:barbaric_scope')
   let g:barbaric_scope = 'buffer'
 endif
 
-" Forget alternate input method after n seconds in Normal mode (disabled by default)
-" Useful if you only need IM persistence for short bursts of active work.
+" How long until Barbaric automatically resets/forgets the input language? -----
+" (disabled by default; useful for limiting IM persistence to short bursts of active work)
 if !exists('g:barbaric_timeout')
   let g:barbaric_timeout = -1
 endif
 
+" FIRE IT UP ===================================================================
 augroup barbaric
   autocmd!
   autocmd InsertEnter * call barbaric#switch('insert')
