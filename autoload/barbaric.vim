@@ -49,7 +49,7 @@ function! barbaric#get_im()
   elseif g:barbaric_ime == 'xkb-switch'
     return libcall(g:barbaric_libxkbswitch, 'Xkb_Switch_getXkbLayout', '')
   elseif g:barbaric_ime == 'fcitx'
-    return system('fcitx-remote') == 2 ? '-o' : '-c'
+    return system(g:barbaric_fcitx_cmd) == 2 ? '-o' : '-c'
   elseif g:barbaric_ime == 'ibus'
     return system('ibus engine')
   endif
@@ -70,7 +70,7 @@ function! s:set_im(im)
   elseif g:barbaric_ime == 'xkb-switch'
     call libcall(g:barbaric_libxkbswitch, 'Xkb_Switch_setXkbLayout', a:im)
   elseif g:barbaric_ime == 'fcitx'
-    silent call system('fcitx-remote ' . a:im)
+    silent call system(g:barbaric_fcitx_cmd . ' ' . a:im)
   elseif g:barbaric_ime == 'ibus'
     silent call system('ibus engine ' . a:im)
   endif

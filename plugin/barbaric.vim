@@ -11,6 +11,14 @@ if !exists('g:barbaric_libxkbswitch')
   endif
 endif
 
+if !exists('g:barbaric_fcitx_cmd')
+  if executable('fcitx-remote')
+    let g:barbaric_fcitx_cmd = 'fcitx-remote'
+  elseif executable('fcitx5-remote')
+    let g:barbaric_fcitx_cmd = 'fcitx5-remote'
+  endif
+endif
+
 if !exists('g:barbaric_ime')
   let g:barbaric_uname = substitute(system('uname'), '\n', '', '')
 
@@ -18,7 +26,7 @@ if !exists('g:barbaric_ime')
     let g:barbaric_ime = 'macos'
   elseif exists('g:barbaric_libxkbswitch')
     let g:barbaric_ime = 'xkb-switch'
-  elseif executable('fcitx-remote') && system('fcitx-remote') > 0
+  elseif exists('g:barbaric_fcitx_cmd') && system(g:barbaric_fcitx_cmd) > 0
     let g:barbaric_ime = 'fcitx'
   elseif executable('ibus')
     let g:barbaric_ime = 'ibus'

@@ -77,6 +77,9 @@ let g:barbaric_scope = 'buffer'
 " Useful if you only need IM persistence for short bursts of active work.
 let g:barbaric_timeout = -1
 
+" The fcitx-remote binary (to distinguish between fcitx and fcitx5)
+let g:barbaric_fcitx_cmd = 'fcitx5-remote'
+
 " The xkb-switch library path (for Linux xkb-switch users ONLY)
 let g:barbaric_libxkbswitch = $HOME . '/.local/lib/libxkbswitch.so'
 ```

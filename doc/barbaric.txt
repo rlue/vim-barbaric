@@ -63,6 +63,11 @@ Persistence timeout	number (default: -1)
 	active work.
 	Disabled by default.
 
+                                                        *g:barbaric_fcitx_cmd*
+fcitx-remote binary	string (default: auto-detected)
+	Used to distinguish between binaries for fcitx and fcitx5.
+	Options are "fcitx-remote" or "fcitx5-remote".
+
                                                         *g:barbaric_libxkbswitch*
 xkb-switch path		string (default: auto-detected)
 	File path to the libxkbswitch.so library file, for the Linux utility
