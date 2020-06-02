@@ -1,5 +1,7 @@
-" Check dependencies
-if has('mac') && executable('xkbswitch')
+" Check dependencies (see https://vi.stackexchange.com/a/2577/2593)
+let g:barbaric_uname = substitute(system('uname'), '\n', '', '')
+
+if g:barbaric_uname == 'Darwin' && executable('xkbswitch')
   let g:barbaric_ime = 'macos'
 elseif executable('fcitx-remote') && system('fcitx-remote') > 0
   let g:barbaric_ime = 'fcitx'
