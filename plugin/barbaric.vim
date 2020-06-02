@@ -1,8 +1,6 @@
 " PREFLIGHT ====================================================================
 
 " What IME are we using? -------------------------------------------------------
-let g:barbaric_uname = substitute(system('uname'), '\n', '', '')
-
 if !exists('g:barbaric_libxkbswitch')
   if exists('g:XkbSwitchLib')
     let g:barbaric_libxkbswitch = g:XkbSwitchLib
@@ -13,16 +11,20 @@ if !exists('g:barbaric_libxkbswitch')
   endif
 endif
 
-if g:barbaric_uname == 'Darwin' && executable('xkbswitch')
-  let g:barbaric_ime = 'macos'
-else if exists('g:barbaric_libxkbswitch')
-  let g:barbaric_ime = 'xkb-switch'
-elseif executable('fcitx-remote') && system('fcitx-remote') > 0
-  let g:barbaric_ime = 'fcitx'
-elseif executable('ibus')
-  let g:barbaric_ime = 'ibus'
-else
-  finish
+if !exists('g:barbaric_ime')
+  let g:barbaric_uname = substitute(system('uname'), '\n', '', '')
+
+  if g:barbaric_uname == 'Darwin' && executable('xkbswitch')
+    let g:barbaric_ime = 'macos'
+  elseif exists('g:barbaric_libxkbswitch')
+    let g:barbaric_ime = 'xkb-switch'
+  elseif executable('fcitx-remote') && system('fcitx-remote') > 0
+    let g:barbaric_ime = 'fcitx'
+  elseif executable('ibus')
+    let g:barbaric_ime = 'ibus'
+  else
+    finish
+  endif
 endif
 
 " What language should Normal mode revert to? ----------------------------------

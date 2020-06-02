@@ -60,9 +60,13 @@ On macOS, in certain input methods (notably Chinese and Korean), switching windo
 Configuration
 -------------
 
-To change the default behavior of _Barbaric_, modify the lines below and add them to your `.vimrc`. 
+_Barbaric_ does its best to work out of the box with zero configuration.
+To change its default behavior, modify the lines below and add them to your `.vimrc`. 
 
 ```viml
+" The IME to invoke for managing input languages (macos, fcitx, ibus, xkb-switch)
+let g:barbaric_ime = 'fcitx'
+
 " The input method for Normal mode (as defined by `xkbswitch -g`, `ibus engine`, or `xkb-switch -p`)
 let g:barbaric_default = 0
 
@@ -72,6 +76,9 @@ let g:barbaric_scope = 'buffer'
 " Forget alternate input method after n seconds in Normal mode (disabled by default)
 " Useful if you only need IM persistence for short bursts of active work.
 let g:barbaric_timeout = -1
+
+" The xkb-switch library path (for Linux xkb-switch users ONLY)
+let g:barbaric_libxkbswitch = $HOME . '/.local/lib/libxkbswitch.so'
 ```
 
 License

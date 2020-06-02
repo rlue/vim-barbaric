@@ -1,14 +1,14 @@
-*barbaric.txt*			Automatic input method switching for Mac OS
+*barbaric.txt*                     Intelligent, automatic input method switching
 
 ==============================================================================
-INTRODUCTION							*barbaric*
+INTRODUCTION						*barbaric*
 
 Barbaric facilitates the use of non-Latin input methods in vim (since Normal
 mode commands are nearly all mapped to Latin characters). It automatically
 detects and switches between input methods as appropriate, and requires no
 user interaction.
 
-This plugin depends on a third-party binary which is only available for macOS.
+This plugin supports various IMEs for UNIX-like systems like macOS and Linux.
 For other platforms, consider built-in support for X11 (|mbyte-XIM|) and
 Windows (|mbyte-IME|) IMEs.
 
@@ -21,37 +21,53 @@ Technical Reference ~
 ==============================================================================
 DEPENDENCIES						*barbaric-dependencies*
 
-This plugin depends on xkbswitch-macosx.
-To install it, copy the binary to one of the folders on your PATH:
+This plugin supports the fcitx and ibus IMEs out of the box,
+as well as third-party utilities grwlf/xkb-switch for Linux
+and myshov/xkbswitch-macosx for macOS.
 
-	$ git clone https://github.com/myshov/xkbswitch-macosx
-	$ cp xkbswitch-macosx/bin/xkbswitch /usr/local/bin
-	$ rm -rf xkbswitch-macosx
+See each project's homepage for installation instructions:
+- https://github.com/grwlf/xkb-switch
+- https://github.com/myshov/xkbswitch-macosx
 
 ==============================================================================
 OPTIONS							*barbaric-options*
 
+							*g:barbaric_ime*
+Active IME		string (default: auto-detected)
+	Defines the IME or third-party utility to be invoked to manage the
+	current input language.
+	Options are "macos", "fcitx", "ibus", or "xkb-switch".
+
 							*g:barbaric_default*
-Default input method	number (default system('xkbswitch -g'))
-	Specifies the input method to activate when exiting Insert mode (as
-	reported by xkbswitch).
+Default input method	number (default: auto-detected)
+	Specifies the input method to activate when returning to Normal mode.
 	Be sure to set this if you think you might ever have a non-Latin input
 	method active when launching vim.
+	Options depend on your IME; try one of the following:
+		$ xkbswitch -g
+		$ ibus engine
+		$ xkb-switch -p
 
 							*g:barbaric_scope*
-Persistence scope	string (default "buffer")
+Persistence scope	string (default: "buffer")
 	Sets the scope across which remembered input methods will persist.
 	For example, when "buffer" is used, remembered input methods are local
 	to a each buffer.
 	Options are "global", "tab", "window", or "buffer".
 
 							*g:barbaric_timeout*
-Persistence timeout	number (default -1)
+Persistence timeout	number (default: -1)
 	Forget remembered input methods if this many seconds have elapsed
 	since the last time you entered Insert mode.
 	Useful if you only need input method persistence for short bursts of
 	active work.
 	Disabled by default.
+
+                                                        *g:barbaric_libxkbswitch*
+xkb-switch path		string (default: auto-detected)
+	File path to the libxkbswitch.so library file, for the Linux utility
+        grwlf/xkb-switch.
+        This setting implicitly sets g:barbaric_ime to "xkb-switch".
 
 ==============================================================================
 ABOUT							*barbaric-about*
