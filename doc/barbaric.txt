@@ -75,6 +75,13 @@ xkb-switch path		string (default: auto-detected)
         This setting implicitly sets g:barbaric_ime to "xkb-switch".
 
 ==============================================================================
+TROUBLESHOOTING						*barbaric-troubleshooting*
+
+Some users have reported latency between leaving insert mode
+and the automatic switching of input methods.
+If you experience this problem, try setting 'ttimeoutlen' to 0.
+
+==============================================================================
 ABOUT							*barbaric-about*
 
 This project is hosted on GitHub.

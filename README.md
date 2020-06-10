@@ -84,6 +84,17 @@ let g:barbaric_fcitx_cmd = 'fcitx5-remote'
 let g:barbaric_libxkbswitch = $HOME . '/.local/lib/libxkbswitch.so'
 ```
 
+Troubleshooting
+---------------
+
+* Some users have reported latency between leaving insert mode and the automatic switching of input methods ([#9](https://github.com/rlue/vim-barbaric/issues/9), [#15](https://github.com/rlue/vim-barbaric/issues/15), and [this comment](https://github.com/rlue/vim-barbaric/commit/e3c29ed5a45fa9da72313594a0c5ed89e2293b51#commitcomment-39779599)). If you experience this problem, try this:
+
+  ```viml
+  " .vimrc
+
+  set ttimeoutlen=0
+  ```
+
 License
 -------
 
