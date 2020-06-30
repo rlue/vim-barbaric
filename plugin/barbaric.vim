@@ -62,8 +62,5 @@ augroup barbaric
   autocmd!
   autocmd InsertEnter * call barbaric#switch('insert')
   autocmd InsertLeave * call barbaric#switch('normal')
-  autocmd FocusGained * call barbaric#switch('focus')
-  autocmd FocusLost   * call barbaric#switch('unfocus')
-  autocmd VimLeave    * call barbaric#switch('unfocus')
   autocmd VimEnter    * call barbaric#switch('normal')
 augroup END
