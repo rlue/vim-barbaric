@@ -37,7 +37,7 @@ endfunction
 function! s:record_im()
   let l:im = barbaric#get_im()
   if l:im == g:barbaric_default
-    if exists(s:im_varname)
+    if exists(s:im_varname())
       execute 'silent! unlet ' . s:im_varname()
     endif
   else
