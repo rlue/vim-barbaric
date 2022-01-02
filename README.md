@@ -26,11 +26,11 @@ Vim doesn’t play nicely with non-Latin scripts; _i.e.,_ input languages of non
 
 ### Supported IMEs
 
-* macOS (requires [xkbswitch-macosx](https://github.com/myshov/xkbswitch-macosx))
+* macOS (requires [xkbswitch-macosx](https://github.com/xiehuc/xkbswitch-macosx))
 
   ```sh
   # Install via:
-  $ curl -o /usr/local/bin/xkbswitch https://raw.githubusercontent.com/myshov/xkbswitch-macosx/master/bin/xkbswitch
+  $ curl -L -o /usr/local/bin/xkbswitch https://github.com/xiehuc/xkbswitch-macosx/releases/download/v0.1.0/xkbswitch
   ```
 
 * fcitx
@@ -91,7 +91,7 @@ Troubleshooting
 
   ```viml
   " .vimrc
-
+  
   set ttimeoutlen=0
   ```
 
