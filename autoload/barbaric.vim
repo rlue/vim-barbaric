@@ -46,8 +46,10 @@ function! s:record_im()
 endfunction
 
 function! barbaric#get_im()
-  if g:barbaric_ime == 'macos'
+  if g:barbaric_ime == 'mac-xkbswitch'
     return system('xkbswitch -g')
+  elseif g:barbaric_ime == 'macism'
+    return system('macism')
   elseif g:barbaric_ime == 'xkb-switch'
     return libcall(g:barbaric_libxkbswitch, 'Xkb_Switch_getXkbLayout', '')
   elseif g:barbaric_ime == 'fcitx'
@@ -67,8 +69,10 @@ function! s:restore_insert_im()
 endfunction
 
 function! s:set_im(im)
-  if g:barbaric_ime == 'macos'
+  if g:barbaric_ime == 'mac-xkbswitch'
     silent call system('xkbswitch -s ' . a:im)
+  elseif g:barbaric_ime == 'macism'
+    silent call system('macism ' . a:im)
   elseif g:barbaric_ime == 'xkb-switch'
     call libcall(g:barbaric_libxkbswitch, 'Xkb_Switch_setXkbLayout', a:im)
   elseif g:barbaric_ime == 'fcitx'
