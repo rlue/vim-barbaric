@@ -22,8 +22,10 @@ endif
 if !exists('g:barbaric_ime')
   silent let g:barbaric_uname = substitute(system('uname'), '\n', '', '')
 
-  silent if g:barbaric_uname == 'Darwin' && executable('xkbswitch')
-    let g:barbaric_ime = 'macos'
+  silent if executable('macism')
+    let g:barbaric_ime = 'macism'
+  elseif g:barbaric_uname == 'Darwin' && executable('xkbswitch')
+    let g:barbaric_ime = 'mac-xkbswitch'
   elseif exists('g:barbaric_libxkbswitch')
     let g:barbaric_ime = 'xkb-switch'
   elseif exists('g:barbaric_fcitx_cmd') && system(g:barbaric_fcitx_cmd) > 0

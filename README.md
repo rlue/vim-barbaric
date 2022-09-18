@@ -26,16 +26,11 @@ Vim doesn’t play nicely with non-Latin scripts; _i.e.,_ input languages of non
 
 ### Supported IMEs
 
-* macOS (requires [xkbswitch-macosx](https://github.com/myshov/xkbswitch-macosx))
-
-  ```sh
-  # Install via:
-  $ curl -o /usr/local/bin/xkbswitch https://raw.githubusercontent.com/myshov/xkbswitch-macosx/master/bin/xkbswitch
-  ```
-
-* fcitx
-* ibus
-* [xkb-switch](https://github.com/grwlf/xkb-switch)
+* 🍎 [macism](https://github.com/laishulu/macism)
+* 🍎 [xkbswitch-macosx](https://github.com/myshov/xkbswitch-macosx) (⚠️ [buggy](https://github.com/myshov/xkbswitch-macosx/issues/5))
+* 🐧 fcitx
+* 🐧 ibus
+* 🐧 [xkb-switch](https://github.com/grwlf/xkb-switch)
 
 If you need support for another IME or input system, consider:
 
