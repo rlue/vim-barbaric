@@ -47,13 +47,13 @@ endfunction
 
 function! barbaric#get_im()
   if g:barbaric_ime == 'macos'
-    return system('xkbswitch -g')
+    silent return system('xkbswitch -g')
   elseif g:barbaric_ime == 'xkb-switch'
     return libcall(g:barbaric_libxkbswitch, 'Xkb_Switch_getXkbLayout', '')
   elseif g:barbaric_ime == 'fcitx'
-    return system(g:barbaric_fcitx_cmd) == 2 ? '-o' : '-c'
+    silent return system(g:barbaric_fcitx_cmd) == 2 ? '-o' : '-c'
   elseif g:barbaric_ime == 'ibus'
-    return system('ibus engine')
+    silent return system('ibus engine')
   endif
 endfunction
 

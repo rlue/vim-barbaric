@@ -19,7 +19,7 @@ From [Wikipedia](https://en.wikipedia.org/w/index.php?title=Barbarian&oldid=7928
 > including the Egyptians, Persians, Medes and Phoenicians, emphasizing their
 > otherness, because the language they spoke sounded to Greeks like gibberish
 > represented by the sounds “bar bar bar”....
-> 
+>
 > The Romans adapted the term **to refer to anything non-Roman**.
 
 Vim doesn’t play nicely with non-Latin scripts; _i.e.,_ input languages of non-Roman origin. _Ipso facto,_ this is a plugin for barbarians.
