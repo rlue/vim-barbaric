@@ -1,5 +1,4 @@
 " PREFLIGHT ====================================================================
-
 " What IME are we using? -------------------------------------------------------
 if !exists('g:barbaric_libxkbswitch')
   if exists('g:XkbSwitchLib')
@@ -39,12 +38,17 @@ endif
 
 " What language should Normal mode revert to? ----------------------------------
 " (as defined, e.g., by `xkbswitch -g`, `ibus engine`, or `xkb-switch -p`)
+let s:current_im = barbaric#get_im()
+
 if !exists('g:barbaric_default')
   if g:barbaric_ime == 'fcitx'
     let g:barbaric_default = '-c'
   else
-    let g:barbaric_default = barbaric#get_im()
+    " WARN: will be wrong if user launches vim in non-Latin IM
+    let g:barbaric_default = s:current_im
   endif
+elseif (g:barbaric_default != s:current_im)
+  let s:launched_in_nonlatin_im = 1
 endif
 
 " Once an input language has been identified, where else should we use it? -----
@@ -64,5 +68,9 @@ augroup barbaric
   autocmd!
   autocmd InsertEnter * call barbaric#switch('insert')
   autocmd InsertLeave * call barbaric#switch('normal')
-  autocmd VimEnter    * call barbaric#switch('normal')
+
+  " see https://github.com/rlue/vim-barbaric/issues/26
+  if exists('s:launched_in_nonlatin_im') && (has('nvim') || !exists('v:versionlong') || (v:versionlong <= 9011914))
+    autocmd VimEnter * call barbaric#switch('normal')
+  endif
 augroup END
