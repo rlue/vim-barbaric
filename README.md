@@ -59,10 +59,10 @@ _Barbaric_ does its best to work out of the box with zero configuration.
 To change its default behavior, modify the lines below and add them to your `.vimrc`. 
 
 ```viml
-" The IME to invoke for managing input languages (macos, fcitx, ibus, xkb-switch)
+" The IME to invoke for managing input languages (macism, mac-xkbswitch, fcitx, ibus, xkb-switch)
 let g:barbaric_ime = 'fcitx'
 
-" The input method for Normal mode (as defined by `xkbswitch -g`, `ibus engine`, or `xkb-switch -p`)
+" The input method for Normal mode (as defined by `macism`, `xkbswitch -g`, `ibus engine`, `xkb-switch -p`)
 let g:barbaric_default = 0
 
 " The scope where alternate input methods persist (buffer, window, tab, global)
@@ -82,13 +82,19 @@ let g:barbaric_libxkbswitch = $HOME . '/.local/lib/libxkbswitch.so'
 Troubleshooting
 ---------------
 
-* Some users have reported latency between leaving insert mode and the automatic switching of input methods ([#9](https://github.com/rlue/vim-barbaric/issues/9), [#15](https://github.com/rlue/vim-barbaric/issues/15), and [this comment](https://github.com/rlue/vim-barbaric/commit/e3c29ed5a45fa9da72313594a0c5ed89e2293b51#commitcomment-39779599)). If you experience this problem, try this:
+* Some users have reported latency between leaving insert mode
+  and the automatic switching of input methods ([#9][], [#15][], and [this comment][]).
+  If you experience this problem, try this:
 
   ```viml
   " .vimrc
 
   set ttimeoutlen=0
   ```
+
+  [#9]: https://github.com/rlue/vim-barbaric/issues/9
+  [#15]: https://github.com/rlue/vim-barbaric/issues/15
+  [this comment]: https://github.com/rlue/vim-barbaric/commit/e3c29ed5a45fa9da72313594a0c5ed89e2293b51#commitcomment-39779599
 
 License
 -------

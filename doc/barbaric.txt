@@ -16,6 +16,8 @@ Technical Reference ~
 
     * Dependencies......................................|barbaric-dependencies|
     * Options................................................|barbaric-options|
+    * Troubleshooting................................|barbaric-troubleshooting|
+    * About....................................................|barbaric-about|
 
 
 ==============================================================================
@@ -23,10 +25,11 @@ DEPENDENCIES						*barbaric-dependencies*
 
 This plugin supports the fcitx and ibus IMEs out of the box,
 as well as third-party utilities grwlf/xkb-switch for Linux
-and myshov/xkbswitch-macosx for macOS.
+and laishulu/macism or myshov/xkbswitch-macosx for macOS.
 
 See each project's homepage for installation instructions:
 - https://github.com/grwlf/xkb-switch
+- https://github.com/laishulu/macism
 - https://github.com/myshov/xkbswitch-macosx
 
 ==============================================================================
@@ -36,7 +39,7 @@ OPTIONS							*barbaric-options*
 Active IME		string (default: auto-detected)
 	Defines the IME or third-party utility to be invoked to manage the
 	current input language.
-	Options are "macos", "fcitx", "ibus", or "xkb-switch".
+	Options are "macism", "mac-xkbswitch", "fcitx", "ibus", or "xkb-switch".
 
 							*g:barbaric_default*
 Default input method	number (default: auto-detected)
@@ -44,6 +47,7 @@ Default input method	number (default: auto-detected)
 	Be sure to set this if you think you might ever have a non-Latin input
 	method active when launching vim.
 	Options depend on your IME; try one of the following:
+		$ macism
 		$ xkbswitch -g
 		$ ibus engine
 		$ xkb-switch -p
