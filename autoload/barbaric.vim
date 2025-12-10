@@ -4,13 +4,23 @@ execute exists('g:loaded_barbaric') ? 'finish' : 'let g:loaded_barbaric = 1'
 
 " PUBLIC FUNCTIONS =============================================================
 function! barbaric#switch(next_mode)
+  if exists('g:barbaric_disable') && g:barbaric_disable | return | endif
+
   if a:next_mode == 'normal'
-    call s:record_im()
-    call s:restore_normal_im()
-    call s:set_timeout()
-  elseif a:next_mode == 'insert'
+    let l:current_im = barbaric#get_im()
+
+    if l:current_im != g:barbaric_default
+      execute "silent! let " . s:im_varname() . " = '" . l:current_im . "'"
+      call s:set_im(g:barbaric_default) " restore Normal IM
+      call s:set_timeout()
+    else " reset state
+      if exists(s:im_varname())
+        execute 'silent! unlet ' . s:im_varname()
+      endif
+    endif
+  elseif a:next_mode == 'insert' && exists(s:im_varname())
     call s:check_timeout()
-    call s:restore_insert_im()
+    call s:set_im(eval(s:im_varname())) " restore Insert IM
   endif
 endfunction
 
@@ -34,17 +44,6 @@ function! s:scope()
 endfunction
 
 " Input method -----------------------------------------------------------------
-function! s:record_im()
-  let l:im = barbaric#get_im()
-  if l:im == g:barbaric_default
-    if exists(s:im_varname())
-      execute 'silent! unlet ' . s:im_varname()
-    endif
-  else
-    execute "silent! let " . s:im_varname() . " = '" . l:im . "'"
-  endif
-endfunction
-
 function! barbaric#get_im()
   if g:barbaric_ime == 'macism'
     silent return system('macism')
@@ -57,15 +56,6 @@ function! barbaric#get_im()
   elseif g:barbaric_ime == 'ibus'
     silent return system('ibus engine')
   endif
-endfunction
-
-function! s:restore_normal_im()
-  call s:set_im(g:barbaric_default)
-endfunction
-
-function! s:restore_insert_im()
-  if !exists(s:im_varname()) | return | endif
-  call s:set_im(eval(s:im_varname()))
 endfunction
 
 function! s:set_im(im)

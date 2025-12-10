@@ -67,6 +67,11 @@ Persistence timeout	number (default: -1)
 	active work.
 	Disabled by default.
 
+							*g:barbaric_disable*
+Disable flag		number (default: unset)
+	Skip plugin operation when this is true (1); ignore if false (0) or
+        unset. See |barbaric-troubleshooting| below.
+
                                                         *g:barbaric_fcitx_cmd*
 fcitx-remote binary	string (default: auto-detected)
 	Used to distinguish between binaries for fcitx and fcitx5.
@@ -84,6 +89,11 @@ TROUBLESHOOTING						*barbaric-troubleshooting*
 Some users have reported latency between leaving insert mode
 and the automatic switching of input methods.
 If you experience this problem, try setting 'ttimeoutlen' to 0.
+
+This plugin is liable to slow down the execution of macros because
+it must execute a system command to get the current input method
+each time Vim re-enters Insert mode.
+Set the g:barbaric_disable flag to temporarily suspend operation.
 
 ==============================================================================
 ABOUT							*barbaric-about*
