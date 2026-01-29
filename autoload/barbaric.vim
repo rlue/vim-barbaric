@@ -4,7 +4,7 @@ execute exists('g:loaded_barbaric') ? 'finish' : 'let g:loaded_barbaric = 1'
 
 " PUBLIC FUNCTIONS =============================================================
 function! barbaric#switch(next_mode)
-  if exists('g:barbaric_disable') && g:barbaric_disable | return | endif
+  if reg_executing() != '' | return | endif
 
   if a:next_mode == 'normal'
     let l:current_im = barbaric#get_im()

@@ -96,25 +96,6 @@ Troubleshooting
   [#15]: https://github.com/rlue/vim-barbaric/issues/15
   [this comment]: https://github.com/rlue/vim-barbaric/commit/e3c29ed5a45fa9da72313594a0c5ed89e2293b51#commitcomment-39779599
 
-* vim-barbaric is liable to slow down the execution of macros
-  because it must execute a system command to get the current input method
-  each time you re-enter Insert mode ([#16][]).
-  I haven’t devised a terribly elegant solution for this,
-  but you can suspend vim-barbaric by temporarily setting
-  the `g:barbaric_disable` variable:
-
-  ```viml
-  " before your macro
-  :let g:barbaric_disable = 1
-
-  " after your macro
-  :unlet g:barbaric_disable
-  ```
-
-  If you think of something better, let me know.
-
-  [#16]: https://github.com/rlue/vim-barbaric/issues/16
-
 License
 -------
 
